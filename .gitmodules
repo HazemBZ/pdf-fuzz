@@ -1,0 +1,6 @@
+[submodule "pdf_fuzz_back"]
+	path = pdf_fuzz_back
+	url = https://github.com/HazemBZ/pdf_fuzz_back
+[submodule "pdf_fuzz_front"]
+	path = pdf_fuzz_front
+	url = https://github.com/HazemBZ/pdf_fuzz_front
