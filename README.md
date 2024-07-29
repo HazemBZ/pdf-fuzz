@@ -22,8 +22,8 @@ After changing the contents of `pdf_fuzz_back/assets`, run: `docker-compose up -
 ## TODOs 
 
 - [x] v0 PoC.
+- [x] CI/CD: docker-compose -> one click project spin up.
 - [ ] FE: Handle queries w/ ReactQuery -> DX.
-- [ ] CI/CD: docker-compose -> one click project spin up.
 - [ ] FE/BE: Files uploader -> QoL.
 - [ ] BE: Task Queue solution for files processing -> Seperation of concerns.
 - [ ] BE: ETL solution for text lookup -> Faster lookups, extract once use forever.
