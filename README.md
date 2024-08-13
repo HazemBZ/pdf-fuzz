@@ -4,20 +4,26 @@ PoC bulk search your pdf files using fuzzy text look up.
 
 ## How to
 
+
+__Requirements__
+
+- Docker
+- docker-compose
+
 __Run this project__
 
 1.Clone project and submodules: run `git clone --recurse-submodules https://github.com/HazemBZ/pdf-fuzz`.
 
 2.Drop a folder with pdf files inside `pdf_fuzz_back/assets` folder (smaller number of files -> less time to process).
 
-3.Index db with pdf contents `docker-compose exec backend bash -c "python manage.py reindex"`
+3.Index db with pdf contents: `docker-compose exec backend bash -c "python manage.py reindex"`.
 
 4.Spin up containers: run `docker-compose up`.
 
 
 __Update your pdf file__
 
-After changing the contents of `pdf_fuzz_back/assets`, run: `docker-compose up --build` and that will copy new content inside the container.
+After changing the contents of `pdf_fuzz_back/assets`, reindex with: `docker-compose exec backend bash -c "python manage.py reindex"`.
 
 
 
