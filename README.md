@@ -32,6 +32,11 @@ After changing the contents of `pdf_fuzz_back/assets`, reindex with: `docker-com
 - [x] v0 PoC.
 - [x] CI/CD: docker-compose -> one click project spin up.
 - [x] BE: ETL solution for text lookup -> Faster lookups, extract once use forever.
-- [ ] FE: Handle queries w/ ReactQuery -> DX.
-- [ ] FE/BE: Files uploader -> QoL.
+- [x] FE: Handle queries w/ ReactQuery -> DX.
+- [x] FE/BE: Files uploader -> QoL.
+- [x] FE/FE: Basic file deduplication
+
+
+__V1__
+
 - [ ] BE: Task Queue solution for files processing -> Seperation of concerns.
