@@ -14,11 +14,9 @@ __Run this project__
 
 1.Clone project and submodules: run `git clone --recurse-submodules https://github.com/HazemBZ/pdf-fuzz`.
 
-2.Drop a folder with pdf files inside `pdf_fuzz_back/assets` folder (smaller number of files -> less time to process).
+2.Spin up containers: run `docker-compose up`.
 
-3.Index db with pdf contents: `docker-compose exec backend bash -c "python manage.py reindex"`.
-
-4.Spin up containers: run `docker-compose up`.
+3.First time setup: `docker-compose exec backend bash -c "./manage.py makemigrations; ./manage.py migrate"`
 
 
 __Update your pdf file__
