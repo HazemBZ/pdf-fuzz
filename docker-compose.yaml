@@ -6,22 +6,18 @@ services:
     container_name: pdf_fuzz_back
     ports:
       - "8000:8000"
+      - "8888:8888"
     environment:
       ELASTIC_ADDRESS: elastic
+      CELERY_BROKER: amqp://guest@rabbitmq//
     volumes:
       - ./pdf_fuzz_back/:/app
     depends_on:
       elastic:
         condition: service_healthy
+      celery:
+        condition: service_started
 
-  frontend:
-    build: pdf_fuzz_front/
-    container_name: pdf_fuzz_front
-    ports:
-      - "3000:80"
-    environment:
-      BACKEND_ADDRESS: backend
-      BACKEND_PORT: "8000"
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.0
     container_name: elastic_search
@@ -32,17 +28,61 @@ services:
       xpack.security.enabled: false
       xpack.security.http.ssl.enabled: false
       xpack.license.self_generated.type: basic
+      logger.org.elasticsearch: warn
     volumes:
     - es_data:/usr/share/elasticsearch/data
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "curl  -s http://localhost:9200|grep -q 'for Search'",
-        ]
+      test: ["CMD-SHELL", "curl  -s http://localhost:9200|grep -q 'for Search'"]
       interval: 10s
       timeout: 10s
       retries: 120
+
+    
+  celery:
+    build:
+      context: pdf_fuzz_back/
+      dockerfile: Dockerfile
+    command: celery -A PDF_Fuzz worker --pool threads --loglevel=info
+    environment:
+      - CELERY_BROKER=amqp://guest@rabbitmq//
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - ELASTIC_ADDRESS=elastic
+    volumes:
+      - ./pdf_fuzz_back/:/app
+    depends_on:
+      redis:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      elastic:
+        condition: service_healthy
+
+  rabbitmq:
+    image: rabbitmq:4.0-management
+    container_name: fuzz-rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  redis:
+    image: redis:6-alpine
+
+  dashboard:
+    build:
+      context: pdf_fuzz_back/
+      dockerfile: Dockerfile
+    command: celery -A PDF_Fuzz --broker=amqp://guest@rabbitmq// flower --loglevel=info
+    ports:
+      - 5555:5555
+    environment:
+      - CELERY_BROKER=amqp://guest@rabbitmq//
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - ELASTIC_ADDRESS=elastic
+    volumes:
+      - ./pdf_fuzz_back/:/app
+    depends_on:
+      - backend
+
 
 volumes:
   assets:
