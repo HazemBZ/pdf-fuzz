@@ -1,4 +1,3 @@
-
 services:
   backend:
     build:
@@ -18,6 +17,20 @@ services:
       celery:
         condition: service_started
 
+  frontend:
+    build: pdf_fuzz_front/
+    container_name: pdf_fuzz_front
+    ports:
+      - "3000:3000"
+    environment:
+      BACKEND_ADDRESS: backend
+      BACKEND_PORT: "8000"
+    develop:
+      watch:
+        - action: sync
+          path: pdf_fuzz_front/
+          target: /app
+
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.0
     container_name: elastic_search
@@ -30,7 +43,7 @@ services:
       xpack.license.self_generated.type: basic
       logger.org.elasticsearch: warn
     volumes:
-    - es_data:/usr/share/elasticsearch/data
+      - es_data:/usr/share/elasticsearch/data
     healthcheck:
       test: ["CMD-SHELL", "curl  -s http://localhost:9200|grep -q 'for Search'"]
       interval: 10s
