@@ -33,5 +33,5 @@ __V1__
 - [x] BE: Task Queue solution for files processing -> Seperation of concerns.
 - [x] FE/FE: Basic file deduplication
 - [x] BE: Refactor into pipelines and orchestrators
-- [ ] BE: Test code
-- [ ] BE: (docs) Add diagrams
+- [x] BE: Test code
+- [x] BE: (docs) Add diagrams
