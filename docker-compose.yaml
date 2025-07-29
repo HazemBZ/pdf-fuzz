@@ -18,12 +18,18 @@ services:
         condition: service_started
 
   frontend:
-    build: pdf_fuzz_front/
+    build: 
+      context: pdf_fuzz_front/
+      dockerfile: Dockerfile
     container_name: pdf_fuzz_front
     ports:
-      - "3000:3000"
+      - "88:80"
+      - "7000:7000"
     environment:
-      BACKEND_ADDRESS: backend
+      PROD: true
+      GATEWAY_DOMAIN: localhost
+      GATEWAY_PORT: "7000"
+      BACKEND_DOMAIN: backend
       BACKEND_PORT: "8000"
     develop:
       watch:
