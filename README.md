@@ -18,6 +18,8 @@ __Run this project__
 
 3.First time setup: `docker-compose exec backend bash -c "./manage.py makemigrations; ./manage.py migrate"`
 
+4.Access app @`http://localhost:88`
+
 ## TODOs 
 
 __V0-PoC__
