@@ -2,6 +2,8 @@ services:
   backend:
     build:
       context: pdf_fuzz_back/
+      args:
+        IS_BACKEND: true
     container_name: pdf_fuzz_back
     ports:
       - "8000:8000"

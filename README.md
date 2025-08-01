@@ -16,9 +16,7 @@ __Run this project__
 
 2.Spin up containers: run `docker-compose up`.
 
-3.First time setup: `docker-compose exec backend bash -c "./manage.py makemigrations; ./manage.py migrate"`
-
-4.Access app @`http://localhost:88`
+3.Access app @`http://localhost:88`
 
 ## TODOs 
 
@@ -37,3 +35,4 @@ __V1__
 - [x] BE: Refactor into pipelines and orchestrators
 - [x] BE: Test code
 - [x] BE: (docs) Add diagrams
+- [x] CI/CD: Auto migration setup
