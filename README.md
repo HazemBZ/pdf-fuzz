@@ -18,6 +18,10 @@ __Run this project__
 
 3.Access app @`http://localhost:88`
 
+## Documentation
+
+System architectures are described [here](docs/diagrams/architecture.md).
+
 ## TODOs 
 
 __V0-PoC__
