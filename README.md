@@ -2,7 +2,7 @@
 
 PoC bulk search your pdf files using fuzzy text look up.
 
-## How to
+## Setup
 
 
 __Requirements__
@@ -12,11 +12,19 @@ __Requirements__
 
 __Run this project__
 
-1.Clone project and submodules: run `git clone --recurse-submodules https://github.com/HazemBZ/pdf-fuzz`.
+Clone project and submodules:
 
-2.Spin up containers: run `docker-compose up`.
+```sh
+git clone --recurse-submodules https://github.com/HazemBZ/pdf-fuzz
+```
 
-3.Access app @`http://localhost:88`
+Spin up containers:
+
+```sh
+docker-compose up
+```
+
+Access app at: `http://localhost:88`
 
 ## Documentation
 

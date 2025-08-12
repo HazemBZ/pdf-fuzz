@@ -1,13 +1,15 @@
 
 ## Architectures
 
-**About**: Systems architectures are described here.
+**About**
+
+Systems architecture is described here.
 
 
-**Data Flow**
+### Data Flow
 
 ![pdf_fuzz_data_flow.](./pdf_fuzz_data_flow.png)
 
-**File deduplication**
+### File deduplication
 
 ![pdf_fuzz_data_flow.](./file-deduplication.png)
