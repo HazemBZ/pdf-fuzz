@@ -5,6 +5,7 @@ services:
       args:
         IS_BACKEND: true
     container_name: pdf_fuzz_back
+    command: "uv run -- python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
       - "8888:8888"
@@ -13,6 +14,7 @@ services:
       CELERY_BROKER: amqp://guest@rabbitmq//
     volumes:
       - ./pdf_fuzz_back/:/app
+      - pdf_fuzz_back_venv:/app/.venv 
     depends_on:
       elastic:
         condition: service_healthy
@@ -30,7 +32,7 @@ services:
       dockerfile: Dockerfile
     container_name: pdf_fuzz_front
     ports:
-      - "88:80"
+      - "8765:80"
       - "7000:7000"
     environment:
       PROD: true
@@ -71,13 +73,14 @@ services:
     build:
       context: pdf_fuzz_back/
       dockerfile: Dockerfile
-    command: celery -A PDF_Fuzz worker --pool threads --loglevel=info
+    command: "uv run -- celery -A PDF_Fuzz worker --pool threads --loglevel=info"
     environment:
       - CELERY_BROKER=amqp://guest@rabbitmq//
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - ELASTIC_ADDRESS=elastic
     volumes:
       - ./pdf_fuzz_back/:/app
+      - pdf_fuzz_back_venv:/app/.venv 
     depends_on:
       redis:
         condition: service_started
@@ -100,7 +103,7 @@ services:
     build:
       context: pdf_fuzz_back/
       dockerfile: Dockerfile
-    command: celery -A PDF_Fuzz --broker=amqp://guest@rabbitmq// flower --loglevel=info
+    command: "uv run -- celery -A PDF_Fuzz worker --broker=amqp://guest@rabbitmq// flower --loglevel=info"
     ports:
       - 5555:5555
     environment:
@@ -116,3 +119,4 @@ services:
 volumes:
   assets:
   es_data:
+  pdf_fuzz_back_venv: {}
