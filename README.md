@@ -24,7 +24,7 @@ Spin up containers:
 docker-compose up
 ```
 
-Access app at: `http://localhost:88`
+Access app at: `http://localhost:7000`
 
 ## Documentation
 
@@ -42,6 +42,14 @@ __V0-PoC__
 
 __V1__
 
+- [ ] Make tasks dashboard optional (compose file stuff) 
+- [x] Files deletions ✅ 2026-04-28
+- [x] Dark/light modes
+- [x] Add and render processing states (queued/processing/success/failure) ✅ 2026-04-28
+- [x]  Better front builds (pnpm)
+- [x] New frontend (radix) ✅ 2026-04-28
+- [x] Better back build (uv)
+- [x] Basic fine-tuning ✅ 2026-04-28
 - [x] BE: Task Queue solution for files processing -> Seperation of concerns.
 - [x] FE/FE: Basic file deduplication
 - [x] BE: Refactor into pipelines and orchestrators
