@@ -28,9 +28,9 @@ services:
 
   frontend:
     build: 
-      context: pdf_fuzz_front/
+      context: pdf-fuzz-front/
       dockerfile: Dockerfile
-    container_name: pdf_fuzz_front
+    container_name: pdf_fuzz_front_v2
     ports:
       - "8765:80"
       - "7000:7000"
@@ -73,7 +73,7 @@ services:
     build:
       context: pdf_fuzz_back/
       dockerfile: Dockerfile
-    command: "uv run -- celery -A PDF_Fuzz worker --pool threads --loglevel=info"
+    command: "uv run celery -A PDF_Fuzz worker --pool threads --loglevel=info"
     environment:
       - CELERY_BROKER=amqp://guest@rabbitmq//
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
