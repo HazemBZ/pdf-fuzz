@@ -36,8 +36,6 @@ services:
       - "7000:7000"
     environment:
       PROD: true
-      GATEWAY_DOMAIN: localhost
-      GATEWAY_PORT: "7000"
       BACKEND_DOMAIN: backend
       BACKEND_PORT: "8000"
     depends_on:
@@ -103,7 +101,7 @@ services:
     build:
       context: pdf_fuzz_back/
       dockerfile: Dockerfile
-    command: "uv run -- celery -A PDF_Fuzz worker --broker=amqp://guest@rabbitmq// flower --loglevel=info"
+    command: "uv run -- celery -A PDF_Fuzz flower --loglevel=info"
     ports:
       - 5555:5555
     environment:
