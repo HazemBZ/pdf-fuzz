@@ -98,6 +98,7 @@ services:
     image: redis:6-alpine
 
   dashboard:
+    profiles: ["flower"]
     build:
       context: pdf_fuzz_back/
       dockerfile: Dockerfile
