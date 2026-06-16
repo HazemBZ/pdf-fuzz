@@ -2,11 +2,6 @@
 
 Upload your PDF collection, type what you're looking for, and find the right document even when you misspelled it or only remember a fragment of the text.
 
-[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
-[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
-[![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
-[![Elasticsearch](https://img.shields.io/badge/Elasticsearch-005571?style=flat&logo=elasticsearch&logoColor=white)](https://www.elastic.co/elasticsearch/)
-
 ## ✨ What it does
 
 - **Drop your PDFs** into the web interface
@@ -30,13 +25,6 @@ Anyone with a collection of PDFs who needs to search them by content, not just f
 - **Writers** tracking citations across reference materials
 - **Paralegals** searching document bundles for relevant clauses
 - Basically anyone drowning in PDFs who needs to find things fast
-
-## 📖 How it works (in plain language)
-
-1. **Upload** your PDFs through the web page
-2. **Behind the scenes**, the system extracts the text from each PDF and stores it efficiently
-3. **Search** using everyday words — it finds matches even with typos, partial words, or slightly different phrasing
-4. **Results** show you which PDFs matched and highlight where the text appears
 
 ## 🚀 Getting started
 
@@ -68,14 +56,82 @@ Press **Ctrl + C** in the terminal window where it's running, or run:
 docker compose down
 ```
 
+## 📖 How it works (in plain language)
+
+1. **Upload** your PDFs through the web page
+2. **Behind the scenes**, the system extracts the text from each PDF and stores it efficiently
+3. **Search** using everyday words — it finds matches even with typos, partial words, or slightly different phrasing
+4. **Results** show you which PDFs matched and highlight where the text appears
+
 ## Features
 
-- **Fuzzy Text Search** - Search across PDF files with fuzzy matching (typos and partial words work)
-- **File Management** - Upload, view, and delete PDF files
-- **Processing States** - Track file processing (queued/processing/success/failure)
-- **File Deduplication** - Automatically detect and handle duplicate files
-- **Dark/Light Mode** - Toggle between themes
-- **Docker Setup** - One-command deployment with Docker Compose
+- **Fuzzy Text Search** — Search across PDF files with fuzzy matching (typos and partial words work)
+- **File Management** — Upload, view, and delete PDF files
+- **Processing States** — Track file processing (queued/processing/success/failure)
+- **File Deduplication** — Automatically detect and handle duplicate files
+- **Dark/Light Mode** — Toggle between themes
+- **Docker Setup** — One-command deployment with Docker Compose
+
+## Usage
+
+### 1. Upload PDF Files
+
+Drag and drop PDF files into the upload area or use the file picker. Files are automatically processed and indexed.
+
+<p align="center">
+  <img src="docs/screenshots/processing.png" alt="PDF files in various processing states" width="700">
+  <br>
+  <em>Files show their processing status — queued, processing, success, or failure</em>
+</p>
+
+### 2. Search Documents
+
+Enter your search query in the search bar. The fuzzy search will find relevant documents even with partial matches or typos.
+
+### 3. View Results
+
+Browse through search results with preview thumbnails. Matched text is highlighted so you can jump straight to the relevant part.
+
+<p align="center">
+  <img src="docs/screenshots/highligh-a-match.png" alt="Search results with highlighted text matches" width="700">
+  <br>
+  <em>Matching text is highlighted across your PDFs</em>
+</p>
+
+### 4. Manage Files
+
+- View file processing status
+- Delete files you no longer need
+- The system automatically handles duplicate files
+
+## Technology
+
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
+[![Elasticsearch](https://img.shields.io/badge/Elasticsearch-005571?style=flat&logo=elasticsearch&logoColor=white)](https://www.elastic.co/elasticsearch/)
+
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| Frontend | React 19, TypeScript, Vite, shadcn/ui | User interface |
+| Backend | Django 5.2, Python 3.12 | REST API |
+| Search | Elasticsearch 8.14 | Fuzzy text indexing |
+| Task Queue | Celery + RabbitMQ | Async PDF processing |
+| Cache | Redis | Task results |
+| Infrastructure | Docker Compose | Container orchestration |
+
+## Architecture Overview
+
+The application follows a microservices architecture with the following components:
+
+![Data Flow](docs/diagrams/pdf_fuzz_data_flow.png)
+
+- **Frontend** — React SPA with nginx reverse proxy
+- **Backend** — Django REST API for file management and search
+- **Elasticsearch** — Powers fuzzy text search capabilities
+- **Celery** — Async task queue for PDF processing
+- **RabbitMQ** — Message broker for Celery tasks
+- **Redis** — Caching layer for task results
 
 ## Detailed Setup
 
@@ -143,32 +199,6 @@ pnpm install
 pnpm dev
 ```
 
-## Architecture Overview
-
-The application follows a microservices architecture with the following components:
-
-![Data Flow](docs/diagrams/pdf_fuzz_data_flow.png)
-
-### Components
-
-- **Frontend** - React SPA with nginx reverse proxy
-- **Backend** - Django REST API for file management and search
-- **Elasticsearch** - Powers fuzzy text search capabilities
-- **Celery** - Async task queue for PDF processing
-- **RabbitMQ** - Message broker for Celery tasks
-- **Redis** - Caching layer for task results
-
-## Technology Stack
-
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| Frontend | React 19, TypeScript, Vite, shadcn/ui | User interface |
-| Backend | Django 5.2, Python 3.12 | REST API |
-| Search | Elasticsearch 8.14 | Fuzzy text indexing |
-| Task Queue | Celery + RabbitMQ | Async PDF processing |
-| Cache | Redis | Task results |
-| Infrastructure | Docker Compose | Container orchestration |
-
 ## Configuration
 
 ### Environment Variables
@@ -192,38 +222,6 @@ The application follows a microservices architecture with the following componen
 | RabbitMQ | 5672 | Message broker |
 | RabbitMQ Management | 15672 | Management UI |
 | Redis | 6379 | Cache |
-
-## Usage
-
-### 1. Upload PDF Files
-
-Drag and drop PDF files into the upload area or use the file picker. Files are automatically processed and indexed.
-
-<p align="center">
-  <img src="docs/screenshots/processing.png" alt="PDF files in various processing states" width="700">
-  <br>
-  <em>Files show their processing status — queued, processing, success, or failure</em>
-</p>
-
-### 2. Search Documents
-
-Enter your search query in the search bar. The fuzzy search will find relevant documents even with partial matches or typos.
-
-### 3. View Results
-
-Browse through search results with preview thumbnails. Matched text is highlighted so you can jump straight to the relevant part.
-
-<p align="center">
-  <img src="docs/screenshots/highligh-a-match.png" alt="Search results with highlighted text matches" width="700">
-  <br>
-  <em>Matching text is highlighted across your PDFs</em>
-</p>
-
-### 4. Manage Files
-
-- View file processing status
-- Delete files you no longer need
-- The system automatically handles duplicate files
 
 ## Development
 
@@ -417,6 +415,7 @@ pdf-fuzz/
 │   ├── package.json           # Node.js dependencies
 │   └── Dockerfile
 ├── docs/                      # Documentation
+│   ├── screenshots/          # App screenshots
 │   └── diagrams/             # Architecture diagrams
 ├── docker-compose.yaml        # Container orchestration
 └── README.md                  # This file
