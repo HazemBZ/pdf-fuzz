@@ -14,6 +14,12 @@ Upload your PDF collection, type what you're looking for, and find the right doc
 - **It finds the right documents** and shows you where the text appears
 - **Everything runs on your own machine** — your files never leave your computer
 
+<p align="center">
+  <img src="docs/screenshots/uploaded.png" alt="pdf-fuzz interface with uploaded PDF files" width="700">
+  <br>
+  <em>Upload your PDFs and search them in one place</em>
+</p>
+
 ## 👤 Who it's for
 
 Anyone with a collection of PDFs who needs to search them by content, not just filenames:
@@ -193,13 +199,25 @@ The application follows a microservices architecture with the following componen
 
 Drag and drop PDF files into the upload area or use the file picker. Files are automatically processed and indexed.
 
+<p align="center">
+  <img src="docs/screenshots/processing.png" alt="PDF files in various processing states" width="700">
+  <br>
+  <em>Files show their processing status — queued, processing, success, or failure</em>
+</p>
+
 ### 2. Search Documents
 
 Enter your search query in the search bar. The fuzzy search will find relevant documents even with partial matches or typos.
 
 ### 3. View Results
 
-Browse through search results with preview thumbnails. Click on any result to view the full PDF page.
+Browse through search results with preview thumbnails. Matched text is highlighted so you can jump straight to the relevant part.
+
+<p align="center">
+  <img src="docs/screenshots/highligh-a-match.png" alt="Search results with highlighted text matches" width="700">
+  <br>
+  <em>Matching text is highlighted across your PDFs</em>
+</p>
 
 ### 4. Manage Files
 
